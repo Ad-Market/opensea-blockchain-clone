@@ -2,7 +2,8 @@ import Header from '../components/Header'
 import Welcome from '../components/Welcome'
 import { useWeb3 } from '@3rdweb/hooks'
 import { useEffect } from 'react'
-import {client} from '@sanity/client'
+import { client } from '../lib/sanityClient'
+import toast, { Toaster } from 'react-hot-toast'
 const style = {
   wrapper: ``,
   walletConnectWrapper: `flex flex-col justify-center items-center h-screen w-screen bg-[#3b3d42] `,
@@ -12,6 +13,18 @@ const style = {
 
 export default function Home() {
   const { address, connectWallet } = useWeb3()
+
+  const welcomeUser = (userName, toastHandler = toast) => {
+    toastHandler.success(
+      `Welcome ${userName !== 'Unnamed' ? `${userName}` : ''}!`,
+      {
+        style: {
+          backgroundColor: '#2081e2',
+          color: '#fff',
+        },
+      }
+    )
+  }
   useEffect(() => {
     if (!address) return
     ;(async () => {
@@ -23,12 +36,13 @@ export default function Home() {
       }
       const result = await client.createIfNotExists(userDoc)
       // console.log(result)
+      welcomeUser(result.userName)
     })()
   }, [address])
-  ;(() => console.log('hello'))()
 
   return (
     <div className={style.wrapper}>
+      <Toaster position='top-center' reverseOrder={false} />
       {address ? (
         <>
           <Header />

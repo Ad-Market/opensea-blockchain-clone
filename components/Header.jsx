@@ -21,7 +21,7 @@ const Header = () => {
     <div className={style.wrapper}>
       <Link href="/">
         <div className={style.logoContainer}>
-          <Image src={logo} height={40} width={40} />
+          <Image src={logo} height={40} width={40} alt=''/>
           <div className={style.logoText}>OpenSea</div>
         </div>
       </Link>
@@ -36,6 +36,7 @@ const Header = () => {
         />
       </div>
       <div className={style.headerItems}>
+        {/* <Link href='/collections/0xe58121BAEBbB109A505e19D45156f01E3aAA5271'> */}
         <Link href="/collections/0x492EDeFEd9Da9885A95Ba0Be77416cd88b8F3A70">
           <div className={style.headerItem}>Collection</div>
         </Link>
